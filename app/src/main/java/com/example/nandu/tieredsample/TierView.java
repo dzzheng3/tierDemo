@@ -2,9 +2,7 @@ package com.example.nandu.tieredsample;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -14,7 +12,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -91,7 +88,7 @@ public class TierView extends ConstraintLayout implements CircleView.Listener {
         customView.setProgress(progress);
     }
 
-    void setCustomViewVisibility(boolean visibilty) {
+    void setConnectorVisibility(boolean visibilty) {
         customView.setVisibility(visibilty ? VISIBLE : GONE);
     }
 

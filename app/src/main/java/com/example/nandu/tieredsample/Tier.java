@@ -1,6 +1,7 @@
 package com.example.nandu.tieredsample;
 
 class Tier {
+    private CircleState circleState;
     private int tierInitialProgress;
     private int tierProgress;
     private int tierTotal;
@@ -13,6 +14,11 @@ class Tier {
     private String tierSecondFooterText;
     private int tierPrimaryFooterTextColor;
     private int tierSencondFooterTextColor;
+    private int tierConnectorColor;
+
+    public CircleState getCircleState() {
+        return circleState;
+    }
 
     public int getTierInitialProgress() {
         return tierInitialProgress;
@@ -66,8 +72,9 @@ class Tier {
         return tierConnectorColor;
     }
 
-    public Tier(int tierInitialProgress, int tierProgress, int tierTotal, int tierProgressColor, int tierRingColor, int tierInnerRingColor, String tierText, int tierTextColor, String tierPrimaryFooterText, String tierSecondFooterText, int tierPrimaryFooterTextColor, int tierSencondFooterTextColor, int tierConnectorColor) {
+    public Tier(CircleState circleState, int tierInitialProgress, int tierProgress, int tierTotal, int tierProgressColor, int tierRingColor, int tierInnerRingColor, String tierText, int tierTextColor, String tierPrimaryFooterText, String tierSecondFooterText, int tierPrimaryFooterTextColor, int tierSencondFooterTextColor, int tierConnectorColor) {
 
+        this.circleState = circleState;
         this.tierInitialProgress = tierInitialProgress;
         this.tierProgress = tierProgress;
         this.tierTotal = tierTotal;
@@ -82,6 +89,4 @@ class Tier {
         this.tierSencondFooterTextColor = tierSencondFooterTextColor;
         this.tierConnectorColor = tierConnectorColor;
     }
-
-    private int tierConnectorColor;
 }

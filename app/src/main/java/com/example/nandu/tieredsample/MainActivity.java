@@ -44,15 +44,17 @@ public class MainActivity extends AppCompatActivity {
 
 
         containerLayout = findViewById(R.id.container);
+        addTierWithText(false);
+        //addTierWithLine();
+        addTierWithImage(true);
+        addTierWithImage(false);
+
+
 //        CircleView circleView = new CircleView(this);
 //        containerLayout.addView(circleView);
 //        circleView.setProgressWithAnimation(140);
 
         // add tier 1 with text
-        addTierWithText(false);
-        //addTierWithLine();
-        addTierWithImage(true);
-        addTierWithImage(false);
 
 //        LinearLayout testCon = findViewById(R.id.testing);
 //        CircleView1 c = new CircleView1(this);
@@ -70,13 +72,13 @@ public class MainActivity extends AppCompatActivity {
         //animate(300);
 
         List<Tier> tiers = new ArrayList<>();
-        Tier tier1 = new Tier(0, 1, 5, Color.GREEN, Color.GRAY, Color.BLUE,
-                "riders", Color.GRAY, "10% off", "0 of 5",
+        Tier tier1 = new Tier(CircleState.UNFINISH, 0, 1, 5, Color.GREEN, Color.GRAY, Color.BLUE,
+                "riders", Color.GRAY, "10% off", "1 of 5",
                 Color.GRAY, Color.GRAY, Color.GRAY);
-        Tier tier2 = new Tier(0, 0, 5, Color.GREEN, Color.GRAY, Color.BLUE,
+        Tier tier2 = new Tier(CircleState.UNFINISH, 0, 0, 5, Color.GREEN, Color.GRAY, Color.BLUE,
                 "riders", Color.GRAY, "20% off", "0 of 5",
                 Color.GRAY, Color.GRAY, Color.GRAY);
-        Tier tier3 = new Tier(0, 0, 5, Color.GREEN, Color.GRAY, Color.BLUE,
+        Tier tier3 = new Tier(CircleState.UNFINISH, 0, 0, 5, Color.GREEN, Color.GRAY, Color.BLUE,
                 "riders", Color.GRAY, "30% off", "0 of 5",
                 Color.GRAY, Color.GRAY, Color.GRAY);
         tiers.add(tier1);
@@ -87,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 "save 10% next week", Color.BLACK, "Detail", Color.BLUE, Color.GRAY, "", tiers);
         containerLayout1 = findViewById(R.id.container1);
 
-
+        addTiers(containerLayout1, tiers);
     }
 
     void animate(int progress) {
@@ -111,12 +113,36 @@ public class MainActivity extends AppCompatActivity {
         containerLayout.addView(lineView);
     }
 
+    private void addTiers(LinearLayout containerLayout1, List<Tier> tiers) {
+        for (int i = 0; i < tiers.size(); i++) {
+            Tier tier = tiers.get(i);
+            TierView tierView = getTierView();
+            containerLayout1.addView(tierView);
+            switch (tier.getCircleState()) {
+                case FINISH:
+                    break;
+                case UNFINISH:
+                    tierView.setTierIcon(R.drawable.lock);
+                    tierView.setDiscountBottomText(tier.getTierPrimaryFooterText());
+                    if (i != tiers.size() - 1)
+                        tierView.setConnectorVisibility(true);
+                    else
+                        tierView.setConnectorVisibility(false);
+
+                    tierView.getTierCircleView(MainActivity.this);
+                    break;
+                case ONPROGRESS:
+                    break;
+            }
+        }
+    }
+
     private void addTierWithImage(boolean showCustomView) {
         TierView tierView = getTierView();
         containerLayout.addView(tierView);
         tierView.setTierIcon(R.drawable.lock);
         tierView.setDiscountBottomText("20% off");
-        tierView.setCustomViewVisibility(showCustomView);
+        tierView.setConnectorVisibility(showCustomView);
         tierView.getTierCircleView(MainActivity.this);
     }
 
