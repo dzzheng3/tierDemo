@@ -72,13 +72,13 @@ public class MainActivity extends AppCompatActivity {
         //animate(300);
 
         List<Tier> tiers = new ArrayList<>();
-        Tier tier1 = new Tier(CircleState.UNFINISH, 0, 1, 5, Color.GREEN, Color.GRAY, Color.BLUE,
-                "riders", Color.GRAY, "10% off", "1 of 5",
-                Color.GRAY, Color.GRAY, Color.GRAY);
-        Tier tier2 = new Tier(CircleState.UNFINISH, 0, 0, 5, Color.GREEN, Color.GRAY, Color.BLUE,
-                "riders", Color.GRAY, "20% off", "0 of 5",
-                Color.GRAY, Color.GRAY, Color.GRAY);
-        Tier tier3 = new Tier(CircleState.UNFINISH, 0, 0, 5, Color.GREEN, Color.GRAY, Color.BLUE,
+        Tier tier1 = new Tier(CircleState.FINISH, 0, 1, 5, Color.GREEN, Color.BLACK, Color.BLUE,
+                "riders", Color.BLACK, "10% off", "1 of 5",
+                Color.BLACK, Color.BLACK, Color.BLACK);
+        Tier tier2 = new Tier(CircleState.FINISH, 0, 0, 5, Color.GREEN, Color.BLACK, Color.BLUE,
+                "riders", Color.BLACK, "20% off", "0 of 5",
+                Color.BLACK, Color.BLACK, Color.BLACK);
+        Tier tier3 = new Tier(CircleState.ONPROGRESS, 0, 4, 5, Color.GREEN, Color.GRAY, Color.BLUE,
                 "riders", Color.GRAY, "30% off", "0 of 5",
                 Color.GRAY, Color.GRAY, Color.GRAY);
         tiers.add(tier1);
@@ -120,10 +120,23 @@ public class MainActivity extends AppCompatActivity {
             containerLayout1.addView(tierView);
             switch (tier.getCircleState()) {
                 case FINISH:
+                    tierView.setTierIcon(R.drawable.tick);
+                    tierView.setDiscountBottomText(tier.getTierPrimaryFooterText(), tier.getTierPrimaryFooterTextColor());
+                    tierView.setSubDiscountBottomText(tier.getTierSecondFooterText(),tier.getTierSencondFooterTextColor());
+                    if (i != tiers.size() - 1)
+                        tierView.setConnectorVisibility(true);
+                    else
+                        tierView.setConnectorVisibility(false);
+
+                    CircleView tierCircleView = tierView.getTierCircleView(MainActivity.this);
+                    tierCircleView.markComplete();
+                    tierCircleView.setProgress(100);
+                    tierView.setConnectorComplete();
                     break;
                 case UNFINISH:
                     tierView.setTierIcon(R.drawable.lock);
-                    tierView.setDiscountBottomText(tier.getTierPrimaryFooterText());
+                    tierView.setDiscountBottomText(tier.getTierPrimaryFooterText(), tier.getTierPrimaryFooterTextColor());
+                    tierView.setSubDiscountBottomText(tier.getTierSecondFooterText(), tier.getTierSencondFooterTextColor());
                     if (i != tiers.size() - 1)
                         tierView.setConnectorVisibility(true);
                     else
@@ -132,6 +145,21 @@ public class MainActivity extends AppCompatActivity {
                     tierView.getTierCircleView(MainActivity.this);
                     break;
                 case ONPROGRESS:
+                    tierView.setTierProgress(tier.getTierProgress());
+                    tierView.setTierTotalProgress(tier.getTierTotal());
+                    tierView.setTripText(tier.getTierText());
+                    tierView.setDiscountBottomText(tier.getTierPrimaryFooterText(),tier.getTierPrimaryFooterTextColor());
+                    tierView.setSubDiscountBottomText(tier.getTierSecondFooterText(), tier.getTierSencondFooterTextColor());
+                    if (i != tiers.size() - 1)
+                        tierView.setConnectorVisibility(true);
+                    else
+                        tierView.setConnectorVisibility(false);
+                    if(tier.getTierProgress()==0){
+                        tierView.getTierCircleView(MainActivity.this).setProgressWithAnimation(5);
+                    }else {
+                        tierView.getTierCircleView(MainActivity.this).setProgressWithAnimation(
+                                100.0f/ tier.getTierTotal()*tier.getTierProgress() );
+                    }
                     break;
             }
         }
@@ -141,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
         TierView tierView = getTierView();
         containerLayout.addView(tierView);
         tierView.setTierIcon(R.drawable.lock);
-        tierView.setDiscountBottomText("20% off");
+        tierView.setDiscountBottomText("20% off", Color.BLACK);
         tierView.setConnectorVisibility(showCustomView);
         tierView.getTierCircleView(MainActivity.this);
     }
@@ -152,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
         containerLayout.addView(tierView);
 
         tierView.setTripText("1/5\nrides");
-        tierView.setDiscountBottomText("10%off");
+        tierView.setDiscountBottomText("10%off", Color.BLACK);
 //        tierView.setProgress(100);
         //tierView.animate(300);
 

@@ -19,6 +19,9 @@ import android.widget.TextView;
 public class TierView extends ConstraintLayout implements CircleView.Listener {
 
     private CircleView circleView;
+    private TextView tierProgress;
+    private TextView subLabel;
+    private TextView tierTotalProgress;
 
     public TierView(Context context) {
         super(context);
@@ -32,10 +35,10 @@ public class TierView extends ConstraintLayout implements CircleView.Listener {
         super(context, attrs, defStyleAttr);
     }
 
-    TextView tripText, bottomText;
+    TextView tripText, bottomText, subBottomText;
     ImageView tierImageView;
     RelativeLayout tierContainer;
-    ProgressBar customView;
+    ProgressBar connectorView;
 
     @Override
     protected void onFinishInflate() {
@@ -43,8 +46,13 @@ public class TierView extends ConstraintLayout implements CircleView.Listener {
         tripText = findViewById(R.id.tripText);
         tierImageView = findViewById(R.id.tierIcon);
         bottomText = findViewById(R.id.discount_bottom);
+        subBottomText = findViewById(R.id.discount_bottom_sub_text);
         tierContainer = findViewById(R.id.tierContainer);
-        customView = findViewById(R.id.customView);
+        connectorView = findViewById(R.id.connector);
+        subLabel = findViewById(R.id.tv_sub_label);
+        tierProgress = findViewById(R.id.tv_tier_progress);
+        tierTotalProgress = findViewById(R.id.tv_tier_total);
+
     }
 
     void setTripText(String trips) {
@@ -55,9 +63,10 @@ public class TierView extends ConstraintLayout implements CircleView.Listener {
         Log.d("TIER", "Trip text location: " + location[0] + " " + location[1]);
     }
 
-    void setDiscountBottomText(String discount) {
+    void setDiscountBottomText(String discount, int tierPrimaryFooterTextColor) {
         bottomText.setVisibility(View.VISIBLE);
         bottomText.setText(discount);
+        bottomText.setTextColor(tierPrimaryFooterTextColor);
         int location[] = new int[2];
         bottomText.getLocationInWindow(location);
         Log.d("TIER", "Discount bottom text location: " + location[0] + " " + location[1]);
@@ -85,11 +94,11 @@ public class TierView extends ConstraintLayout implements CircleView.Listener {
     }
 
     void setProgress(int progress) {
-        customView.setProgress(progress);
+        connectorView.setProgress(progress);
     }
 
     void setConnectorVisibility(boolean visibilty) {
-        customView.setVisibility(visibilty ? VISIBLE : GONE);
+        connectorView.setVisibility(visibilty ? VISIBLE : GONE);
     }
 
     CircleView getTierCircleView(Context context) {
@@ -106,9 +115,27 @@ public class TierView extends ConstraintLayout implements CircleView.Listener {
 
     @Override
     public void animationEnded() {
-        setTripText("\u2713");
-        bottomText.setTypeface(null, Typeface.BOLD);
-        bottomText.setTextColor(Color.BLACK);
-        animate(100);
+//        setTripText("\u2713");
+//        bottomText.setTypeface(null, Typeface.BOLD);
+//        bottomText.setTextColor(Color.BLACK);
+//        animate(100);
+    }
+
+    public void setSubDiscountBottomText(String subDiscountBottomText, int tierSencondFooterTextColor) {
+        subBottomText.setVisibility(View.VISIBLE);
+        subBottomText.setText(subDiscountBottomText);
+        subBottomText.setTextColor(tierSencondFooterTextColor);
+    }
+
+    public void setTierProgress(int tierProgress) {
+        this.tierProgress.setText(tierProgress + "");
+    }
+
+    public void setTierTotalProgress(int tierTotal) {
+        this.tierTotalProgress.setText("/" + tierTotal);
+    }
+
+    public void setConnectorComplete() {
+        connectorView.setProgress(100);
     }
 }

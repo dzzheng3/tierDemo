@@ -74,7 +74,7 @@
     <!--android:background="#d3d3d3"-->
     <!--android:layout_gravity="center"/>-->
     <ProgressBar
-        android:id="@+id/customView"
+        android:id="@+id/connector"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="50dp"
         android:layout_height="5dp"
@@ -104,7 +104,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
-        android:text="discount bottom sub text"
+        android:text=" "
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/tierContainer"

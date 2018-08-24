@@ -85,15 +85,16 @@ public class CircleView extends View {
         //canvas.drawText("1/5\ntrips", startX - 20, startY - 20, textPaint);
         Log.d("TIER", "drawing canvas");
         canvas.drawOval(rectF, bgPaint);
-        bgPaint.setColor(Color.RED);
-        if (isDone)
-            canvas.drawOval(rectFInner, bgPaint);
         canvas.drawArc(rectF, 270, progress * 90 / 25, false, fgPaint);
+        if (isDone) {
+            bgPaint.setColor(Color.BLUE);
+            canvas.drawOval(rectFInner, bgPaint);
+        }
     }
 
     void setProgressWithAnimation(float progress) {
         ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(this, "progress", progress);
-        objectAnimator.setDuration(1000);
+        objectAnimator.setDuration(2000);
         objectAnimator.setInterpolator(new DecelerateInterpolator());
         objectAnimator.start();
         objectAnimator.addListener(new AnimatorListenerAdapter() {
@@ -114,7 +115,7 @@ public class CircleView extends View {
         invalidate();
     }
 
-    boolean isDone;
+    private boolean isDone;
 
     public void markComplete() {
         isDone = true;
