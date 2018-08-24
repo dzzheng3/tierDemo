@@ -30,7 +30,6 @@ import java.util.List;
  Based on payload, check if tier 2 is earning state*/
 public class MainActivity extends AppCompatActivity {
 
-    HorizontalScrollView tiersContainer;
     LinearLayout containerLayout;
     LinearLayout containerLayout1;
     private ProgressBar progressBar;
@@ -40,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tiersContainer = findViewById(R.id.horizontalScrollView);
 
 
         containerLayout = findViewById(R.id.container);

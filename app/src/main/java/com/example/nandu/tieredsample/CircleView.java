@@ -16,7 +16,7 @@ import android.view.animation.DecelerateInterpolator;
 public class CircleView extends View {
 
     Paint bgPaint, fgPaint, textPaint;
-    float startX = 0, startY = 0, radius = 150;
+    float startX = 0, startY = 0;
     float strokeWidth = 20;
     RectF rectF;
     RectF rectFInner;
@@ -52,6 +52,8 @@ public class CircleView extends View {
         textPaint.setAntiAlias(true);
         textPaint.setTextSize(40f);
         textPaint.setColor(Color.BLUE);
+        Log.e("TIER",
+                "11111111");
     }
 
     @Override
@@ -61,7 +63,7 @@ public class CircleView extends View {
         final int height = getDefaultSize(getSuggestedMinimumHeight(), heightMeasureSpec);
         final int width = getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec);
 
-        Log.d("TIER",
+        Log.e("TIER",
                 "Suggested ht:" + getSuggestedMinimumHeight() + " measure spec: " + heightMeasureSpec + "default size "
                         + height);
         Log.d("TIER",
@@ -69,7 +71,7 @@ public class CircleView extends View {
                         + "size " + width);
 
         //final int min = Math.min(width, height) / 2;
-        int min = 250;
+        int min = 100;
 
         Log.d("TIER-------", String.valueOf(min));
         setMeasuredDimension(min, min);
