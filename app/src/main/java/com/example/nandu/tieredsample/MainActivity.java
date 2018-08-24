@@ -124,8 +124,8 @@ public class MainActivity extends AppCompatActivity {
             switch (tier.getCircleState()) {
                 case FINISH:
                     tierView.setTierIcon(R.drawable.tick);
-                    tierView.setDiscountBottomText(tier.getTierPrimaryFooterText(), tier.getTierPrimaryFooterTextColor());
-                    tierView.setSubDiscountBottomText(tier.getTierSecondFooterText(),tier.getTierSencondFooterTextColor());
+                    tierView.setBottomText(tier.getTierPrimaryFooterText(), tier.getTierPrimaryFooterTextColor());
+                    tierView.setSubBottomText(tier.getTierSecondFooterText(),tier.getTierSencondFooterTextColor());
                     if (i != tiers.size() - 1)
                         tierView.setConnectorVisibility(true);
                     else
@@ -139,8 +139,8 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case UNFINISH:
                     tierView.setTierIcon(R.drawable.lock);
-                    tierView.setDiscountBottomText(tier.getTierPrimaryFooterText(), tier.getTierPrimaryFooterTextColor());
-                    tierView.setSubDiscountBottomText(tier.getTierSecondFooterText(), tier.getTierSencondFooterTextColor());
+                    tierView.setBottomText(tier.getTierPrimaryFooterText(), tier.getTierPrimaryFooterTextColor());
+                    tierView.setSubBottomText(tier.getTierSecondFooterText(), tier.getTierSencondFooterTextColor());
                     if (i != tiers.size() - 1)
                         tierView.setConnectorVisibility(true);
                     else
@@ -152,8 +152,8 @@ public class MainActivity extends AppCompatActivity {
                     tierView.setTierProgress(tier.getTierProgress());
                     tierView.setTierTotalProgress(tier.getTierTotal());
                     tierView.setTripText(tier.getTierText());
-                    tierView.setDiscountBottomText(tier.getTierPrimaryFooterText(),tier.getTierPrimaryFooterTextColor());
-                    tierView.setSubDiscountBottomText(tier.getTierSecondFooterText(), tier.getTierSencondFooterTextColor());
+                    tierView.setBottomText(tier.getTierPrimaryFooterText(),tier.getTierPrimaryFooterTextColor());
+                    tierView.setSubBottomText(tier.getTierSecondFooterText(), tier.getTierSencondFooterTextColor());
                     if (i != tiers.size() - 1)
                         tierView.setConnectorVisibility(true);
                     else
@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
         TierView tierView = getTierView();
         containerLayout.addView(tierView);
         tierView.setTierIcon(R.drawable.lock);
-        tierView.setDiscountBottomText("20% off", Color.BLACK);
+        tierView.setBottomText("20% off", Color.BLACK);
         tierView.setConnectorVisibility(showCustomView);
         tierView.getTierCircleView(MainActivity.this);
     }
@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
         containerLayout.addView(tierView);
 
         tierView.setTripText("1/5\nrides");
-        tierView.setDiscountBottomText("10%off", Color.BLACK);
+        tierView.setBottomText("10%off", Color.BLACK);
 //        tierView.setProgress(100);
         //tierView.animate(300);
 
