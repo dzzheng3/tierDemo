@@ -4,14 +4,18 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Typeface;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,6 +26,7 @@ public class TierView extends ConstraintLayout implements CircleView.Listener {
     private TextView tierProgress;
     private TextView subLabel;
     private TextView tierTotalProgress;
+    private int tierSize;
 
     public TierView(Context context) {
         super(context);
@@ -50,9 +55,8 @@ public class TierView extends ConstraintLayout implements CircleView.Listener {
         tierContainer = findViewById(R.id.tierContainer);
         connectorView = findViewById(R.id.connector);
         subLabel = findViewById(R.id.tv_sub_label);
-        tierProgress = findViewById(R.id.tv_tier_progress);
         tierTotalProgress = findViewById(R.id.tv_tier_total);
-
+        tierProgress = findViewById(R.id.tv_tier_progress);
     }
 
     void setTripText(String trips) {
@@ -103,7 +107,7 @@ public class TierView extends ConstraintLayout implements CircleView.Listener {
 
     CircleView getTierCircleView(Context context) {
         Log.d("TIER", "before init circle");
-        circleView = new CircleView(context, this);
+        circleView = new CircleView(context, this,tierSize);
         Log.d("TIER", "after init circle");
         tierContainer.addView(circleView);
         Log.d("TIER", "after adding view circle");
@@ -137,5 +141,22 @@ public class TierView extends ConstraintLayout implements CircleView.Listener {
 
     public void setConnectorComplete() {
         connectorView.setProgress(100);
+    }
+
+    public void setTierSize(int tiersSize) {
+        this.tierSize = tiersSize;
+        resetConnectorSize(tiersSize);
+    }
+
+    private void resetConnectorSize(int tiersSize) {
+        LayoutParams layoutParams = (LayoutParams) connectorView.getLayoutParams();
+        layoutParams.width = tiersSize/3;
+        connectorView.setLayoutParams(layoutParams);
+    }
+
+    public void setConnectorFGColor(int tierRingColor) {
+        LayerDrawable progressBarDrawable = (LayerDrawable) connectorView.getProgressDrawable();
+        Drawable progressDrawable = progressBarDrawable.getDrawable(1);
+        progressDrawable.setColorFilter(tierRingColor, PorterDuff.Mode.SRC_IN);
     }
 }

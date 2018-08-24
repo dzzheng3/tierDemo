@@ -15,13 +15,14 @@ import android.view.animation.DecelerateInterpolator;
 
 public class CircleView extends View {
 
-    Paint bgPaint, fgPaint, textPaint;
+    Paint bgPaint, fgPaint, textPaint, innerPaint;
     float startX = 0, startY = 0;
     float strokeWidth = 20;
     RectF rectF;
     RectF rectFInner;
     private float progress;
     Listener listener;
+    private int tierSize;
 
     public CircleView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -31,9 +32,10 @@ public class CircleView extends View {
         super(context, attrs, defStyleAttr);
     }
 
-    public CircleView(Context context, Listener listener) {
+    public CircleView(Context context, Listener listener, int tierSize) {
         super(context);
         this.listener = listener;
+        this.tierSize = tierSize;
 
         bgPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         bgPaint.setStyle(Paint.Style.STROKE);
@@ -46,12 +48,17 @@ public class CircleView extends View {
         fgPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         fgPaint.setStyle(Paint.Style.STROKE);
         fgPaint.setStrokeWidth(strokeWidth);
-        fgPaint.setColor(Color.parseColor("#008B00"));
+        fgPaint.setColor(Color.parseColor("#47B274"));
 
-        textPaint = new Paint();
-        textPaint.setAntiAlias(true);
-        textPaint.setTextSize(40f);
-        textPaint.setColor(Color.BLUE);
+        innerPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        innerPaint.setStyle(Paint.Style.STROKE);
+        innerPaint.setStrokeWidth(strokeWidth);
+        innerPaint.setColor(Color.parseColor("#BEE0BF"));
+
+//        textPaint = new Paint();
+//        textPaint.setAntiAlias(true);
+//        textPaint.setTextSize(40f);
+//        textPaint.setColor(Color.parseColor(Color.BLUE));
         Log.e("TIER",
                 "11111111");
     }
@@ -71,7 +78,7 @@ public class CircleView extends View {
                         + "size " + width);
 
         //final int min = Math.min(width, height) / 2;
-        int min = 100;
+        int min = tierSize;
 
         Log.d("TIER-------", String.valueOf(min));
         setMeasuredDimension(min, min);
@@ -89,8 +96,7 @@ public class CircleView extends View {
         canvas.drawOval(rectF, bgPaint);
         canvas.drawArc(rectF, 270, progress * 90 / 25, false, fgPaint);
         if (isDone) {
-            bgPaint.setColor(Color.BLUE);
-            canvas.drawOval(rectFInner, bgPaint);
+            canvas.drawOval(rectFInner, innerPaint);
         }
     }
 
@@ -121,6 +127,17 @@ public class CircleView extends View {
 
     public void markComplete() {
         isDone = true;
+    }
+
+    public void setTierRingBGColor(int tierRingColor) {
+        bgPaint.setColor(tierRingColor);
+    }
+    public void setTierRingFGColor(int tierRingColor) {
+        bgPaint.setColor(tierRingColor);
+    }
+
+    public void setInnerTierRingColor(int tierRingColor) {
+        innerPaint.setColor(tierRingColor);
     }
 
     interface Listener {

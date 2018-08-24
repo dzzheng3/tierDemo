@@ -4,10 +4,10 @@ import android.animation.ObjectAnimator;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
@@ -112,9 +112,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addTiers(LinearLayout containerLayout1, List<Tier> tiers) {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int width = displayMetrics.widthPixels;
         for (int i = 0; i < tiers.size(); i++) {
             Tier tier = tiers.get(i);
             TierView tierView = getTierView();
+            tierView.setConnectorFGColor(Color.parseColor("#47B274"));
+            tierView.setTierSize(width/(tiers.size()+1));
             containerLayout1.addView(tierView);
             switch (tier.getCircleState()) {
                 case FINISH:
@@ -128,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
                     CircleView tierCircleView = tierView.getTierCircleView(MainActivity.this);
                     tierCircleView.markComplete();
+                    tierCircleView.setInnerTierRingColor(Color.parseColor("#BEE0BF"));
                     tierCircleView.setProgress(100);
                     tierView.setConnectorComplete();
                     break;
