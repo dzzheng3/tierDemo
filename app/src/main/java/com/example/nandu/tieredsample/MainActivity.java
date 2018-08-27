@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.view.Gravity;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
@@ -30,8 +29,8 @@ import java.util.List;
  Based on payload, check if tier 2 is earning state*/
 public class MainActivity extends AppCompatActivity {
 
-    LinearLayout containerLayout;
     LinearLayout containerLayout1;
+    LinearLayout subTitleContainer;
     private ProgressBar progressBar;
 
     @Override
@@ -40,12 +39,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-
-        containerLayout = findViewById(R.id.container);
-        addTierWithText(false);
-        //addTierWithLine();
-        addTierWithImage(true);
-        addTierWithImage(false);
+//        containerLayout = findViewById(R.id.container);
+//        addTierWithText(false);
+//        //addTierWithLine();
+//        addTierWithImage(true);
+//        addTierWithImage(false);
 
 
 //        CircleView circleView = new CircleView(this);
@@ -76,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         Tier tier2 = new Tier(CircleState.FINISH, 0, 0, 5, Color.GREEN, Color.BLACK, Color.BLUE,
                 "riders", Color.BLACK, "20% off", "0 of 5",
                 Color.BLACK, Color.BLACK, Color.BLACK);
-        Tier tier3 = new Tier(CircleState.ONPROGRESS, 0, 4, 5, Color.GREEN, Color.GRAY, Color.BLUE,
+        Tier tier3 = new Tier(CircleState.FINISH, 0, 5, 5, Color.GREEN, Color.GRAY, Color.BLUE,
                 "riders", Color.GRAY, "30% off", "0 of 5",
                 Color.GRAY, Color.GRAY, Color.GRAY);
         tiers.add(tier1);
@@ -88,6 +86,29 @@ public class MainActivity extends AppCompatActivity {
         containerLayout1 = findViewById(R.id.container1);
 
         addTiers(containerLayout1, tiers);
+
+        subTitleContainer = findViewById(R.id.ll_subtitle_container);
+        addCircle(subTitleContainer, tier3);
+    }
+
+    private void addCircle(LinearLayout subTitleContainer, Tier tier) {
+        CircleView tierCircleView = new CircleView(this, 100);
+        switch (tier.getCircleState()) {
+            case ONPROGRESS:
+                if (tier.getTierProgress() == 0) {
+                    tierCircleView.setProgressWithAnimation(5);
+                } else {
+                    tierCircleView.setProgressWithAnimation(
+                            100.0f / tier.getTierTotal() * tier.getTierProgress());
+                }
+                break;
+            case FINISH:
+                tierCircleView.setShowInnerFill(true);
+                tierCircleView.setProgressWithAnimation(
+                        100.0f / tier.getTierTotal() * tier.getTierProgress());
+                break;
+        }
+        subTitleContainer.addView(tierCircleView);
     }
 
     void animate(int progress) {
@@ -101,15 +122,15 @@ public class MainActivity extends AppCompatActivity {
         progressBar.setProgress(progress);
     }
 
-    private void addTierWithLine() {
-        View lineView = new View(this);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(250, 25);
-        lp.gravity = Gravity.CENTER;
-        lineView.setLayoutParams(lp);
-        lineView.setBackgroundColor(Color.GRAY);
-
-        containerLayout.addView(lineView);
-    }
+//    private void addTierWithLine() {
+//        View lineView = new View(this);
+//        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(250, 25);
+//        lp.gravity = Gravity.CENTER;
+//        lineView.setLayoutParams(lp);
+//        lineView.setBackgroundColor(Color.GRAY);
+//
+//        containerLayout.addView(lineView);
+//    }
 
     private void addTiers(LinearLayout containerLayout1, List<Tier> tiers) {
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -119,13 +140,13 @@ public class MainActivity extends AppCompatActivity {
             Tier tier = tiers.get(i);
             TierView tierView = getTierView();
             tierView.setConnectorFGColor(Color.parseColor("#47B274"));
-            tierView.setTierSize(width/(tiers.size()+1));
+            tierView.setTierSize(width / (tiers.size() + 1));
             containerLayout1.addView(tierView);
             switch (tier.getCircleState()) {
                 case FINISH:
                     tierView.setTierIcon(R.drawable.tick);
                     tierView.setBottomText(tier.getTierPrimaryFooterText(), tier.getTierPrimaryFooterTextColor());
-                    tierView.setSubBottomText(tier.getTierSecondFooterText(),tier.getTierSencondFooterTextColor());
+                    tierView.setSubBottomText(tier.getTierSecondFooterText(), tier.getTierSencondFooterTextColor());
                     if (i != tiers.size() - 1)
                         tierView.setConnectorVisibility(true);
                     else
@@ -152,45 +173,45 @@ public class MainActivity extends AppCompatActivity {
                     tierView.setTierProgress(tier.getTierProgress());
                     tierView.setTierTotalProgress(tier.getTierTotal());
                     tierView.setTripText(tier.getTierText());
-                    tierView.setBottomText(tier.getTierPrimaryFooterText(),tier.getTierPrimaryFooterTextColor());
+                    tierView.setBottomText(tier.getTierPrimaryFooterText(), tier.getTierPrimaryFooterTextColor());
                     tierView.setSubBottomText(tier.getTierSecondFooterText(), tier.getTierSencondFooterTextColor());
                     if (i != tiers.size() - 1)
                         tierView.setConnectorVisibility(true);
                     else
                         tierView.setConnectorVisibility(false);
-                    if(tier.getTierProgress()==0){
+                    if (tier.getTierProgress() == 0) {
                         tierView.getTierCircleView(MainActivity.this).setProgressWithAnimation(5);
-                    }else {
+                    } else {
                         tierView.getTierCircleView(MainActivity.this).setProgressWithAnimation(
-                                100.0f/ tier.getTierTotal()*tier.getTierProgress() );
+                                100.0f / tier.getTierTotal() * tier.getTierProgress());
                     }
                     break;
             }
         }
     }
+//
+//    private void addTierWithImage(boolean showCustomView) {
+//        TierView tierView = getTierView();
+//        containerLayout.addView(tierView);
+//        tierView.setTierIcon(R.drawable.lock);
+//        tierView.setBottomText("20% off", Color.BLACK);
+//        tierView.setConnectorVisibility(showCustomView);
+//        tierView.getTierCircleView(MainActivity.this);
+//    }
 
-    private void addTierWithImage(boolean showCustomView) {
-        TierView tierView = getTierView();
-        containerLayout.addView(tierView);
-        tierView.setTierIcon(R.drawable.lock);
-        tierView.setBottomText("20% off", Color.BLACK);
-        tierView.setConnectorVisibility(showCustomView);
-        tierView.getTierCircleView(MainActivity.this);
-    }
-
-    private void addTierWithText(boolean isFinish) {
-
-        TierView tierView = getTierView();
-        containerLayout.addView(tierView);
-
-        tierView.setTripText("1/5\nrides");
-        tierView.setBottomText("10%off", Color.BLACK);
-//        tierView.setProgress(100);
-        //tierView.animate(300);
-
-        tierView.getTierCircleView(MainActivity.this).setProgressWithAnimation(100);
-        //tierView.animate(100);
-    }
+//    private void addTierWithText(boolean isFinish) {
+//
+//        TierView tierView = getTierView();
+//        containerLayout.addView(tierView);
+//
+//        tierView.setTripText("1/5\nrides");
+//        tierView.setBottomText("10%off", Color.BLACK);
+////        tierView.setProgress(100);
+//        //tierView.animate(300);
+//
+//        tierView.getTierCircleView(MainActivity.this).setProgressWithAnimation(100);
+//        //tierView.animate(100);
+//    }
 
     TierView getTierView() {
         return (TierView) getLayoutInflater().inflate(R.layout.tier_view, null, false);
