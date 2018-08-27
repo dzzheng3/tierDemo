@@ -2,13 +2,15 @@ package com.example.nandu.tieredsample;
 
 import android.animation.ObjectAnimator;
 import android.graphics.Color;
+import android.graphics.drawable.Animatable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.view.View;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,17 +29,18 @@ import java.util.List;
 
  Based on payload, check if tier 1 is completed
  Based on payload, check if tier 2 is earning state*/
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CircleView.CompleteListener {
 
     LinearLayout containerLayout1;
-    LinearLayout subTitleContainer;
+    RelativeLayout subTitleContainer;
     private ProgressBar progressBar;
+    private ImageView checkView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        checkView = findViewById(R.id.iv_check);
 
 //        containerLayout = findViewById(R.id.container);
 //        addTierWithText(false);
@@ -87,12 +90,12 @@ public class MainActivity extends AppCompatActivity {
 
         addTiers(containerLayout1, tiers);
 
-        subTitleContainer = findViewById(R.id.ll_subtitle_container);
+        subTitleContainer = findViewById(R.id.rl_subtitle_container);
         addCircle(subTitleContainer, tier3);
     }
 
-    private void addCircle(LinearLayout subTitleContainer, Tier tier) {
-        CircleView tierCircleView = new CircleView(this, 100);
+    private void addCircle(RelativeLayout subTitleContainer, Tier tier) {
+        CircleView tierCircleView = new CircleView(this, this, 80);
         switch (tier.getCircleState()) {
             case ONPROGRESS:
                 if (tier.getTierProgress() == 0) {
@@ -152,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
                     else
                         tierView.setConnectorVisibility(false);
 
-                    CircleView tierCircleView = tierView.getTierCircleView(MainActivity.this);
+                    CircleView tierCircleView = tierView.getTierCircleView(MainActivity.this, this);
                     tierCircleView.markComplete();
                     tierCircleView.setInnerTierRingColor(Color.parseColor("#BEE0BF"));
                     tierCircleView.setProgress(100);
@@ -167,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
                     else
                         tierView.setConnectorVisibility(false);
 
-                    tierView.getTierCircleView(MainActivity.this);
+                    tierView.getTierCircleView(MainActivity.this, this);
                     break;
                 case ONPROGRESS:
                     tierView.setTierProgress(tier.getTierProgress());
@@ -180,9 +183,9 @@ public class MainActivity extends AppCompatActivity {
                     else
                         tierView.setConnectorVisibility(false);
                     if (tier.getTierProgress() == 0) {
-                        tierView.getTierCircleView(MainActivity.this).setProgressWithAnimation(5);
+                        tierView.getTierCircleView(MainActivity.this, this).setProgressWithAnimation(5);
                     } else {
-                        tierView.getTierCircleView(MainActivity.this).setProgressWithAnimation(
+                        tierView.getTierCircleView(MainActivity.this, this).setProgressWithAnimation(
                                 100.0f / tier.getTierTotal() * tier.getTierProgress());
                     }
                     break;
@@ -217,7 +220,8 @@ public class MainActivity extends AppCompatActivity {
         return (TierView) getLayoutInflater().inflate(R.layout.tier_view, null, false);
     }
 
-    public void click(View view) {
-
+    @Override
+    public void complete() {
+        ((Animatable) checkView.getDrawable()).start();
     }
 }

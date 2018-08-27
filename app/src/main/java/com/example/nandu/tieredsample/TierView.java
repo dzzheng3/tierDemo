@@ -18,7 +18,7 @@ import android.widget.TextView;
  * Under circle also contain TextView
  * Its radius based on screen can be adjustable and paint color can be changed.
  */
-public class TierView extends ConstraintLayout {
+public class TierView extends ConstraintLayout{
 
     private CircleView circleView;
     private TextView tierProgress;
@@ -82,8 +82,8 @@ public class TierView extends ConstraintLayout {
      * @param context
      * @return CircleView
      */
-    CircleView getTierCircleView(Context context) {
-        circleView = new CircleView(context, tierSize);
+    CircleView getTierCircleView(Context context, CircleView.CompleteListener listener) {
+        circleView = new CircleView(context, listener, tierSize);
         tierContainer.addView(circleView);
         return circleView;
     }
