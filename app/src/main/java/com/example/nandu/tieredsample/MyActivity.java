@@ -96,7 +96,7 @@ public class MyActivity extends Activity {
             }
         }
 
-        mainView.addCircle(this, tier2);
+//        mainView.addCircle(this, tier2);
         CircleView tierCircleView = new CircleView(this, mainView, 80);
         switch (tier2.getCircleState()) {
             case ONPROGRESS:
@@ -117,6 +117,6 @@ public class MyActivity extends Activity {
     }
 
     TieredCardView getMainView() {
-        return (TieredCardView) getLayoutInflater().inflate(R.layout.main_view, null, false);
+        return (TieredCardView) getLayoutInflater().inflate(R.layout.tiered_car_view, null, false);
     }
 }
