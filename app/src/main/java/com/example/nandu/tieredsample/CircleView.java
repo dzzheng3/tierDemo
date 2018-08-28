@@ -28,6 +28,8 @@ public class CircleView extends View {
     private CompleteListener listener;
     private int tierSize;
     private boolean isDone, isShowInnerFill;
+    private ObjectAnimator progressAnimator;
+    private ValueAnimator innerCircleAnimator;
 
     public CircleView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -91,11 +93,11 @@ public class CircleView extends View {
     }
 
     void setProgressWithAnimation(final float progress) {
-        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(this, "progress", progress);
-        objectAnimator.setDuration(2000);
-        objectAnimator.setInterpolator(new LinearInterpolator());
-        objectAnimator.start();
-        objectAnimator.addListener(new AnimatorListenerAdapter() {
+        progressAnimator = ObjectAnimator.ofFloat(this, "progress", progress);
+        progressAnimator.setDuration(2000);
+        progressAnimator.setInterpolator(new LinearInterpolator());
+        progressAnimator.start();
+        progressAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
@@ -131,10 +133,10 @@ public class CircleView extends View {
     }
 
     public void showInnerCircleAnimation() {
-        ValueAnimator va = ValueAnimator.ofFloat(0, 1).setDuration(200);
-        va.setInterpolator(new DecelerateInterpolator());
-        va.start();
-        va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+        innerCircleAnimator = ValueAnimator.ofFloat(0, 1).setDuration(200);
+        innerCircleAnimator.setInterpolator(new DecelerateInterpolator());
+        innerCircleAnimator.start();
+        innerCircleAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 isShowInnerFill = true;
@@ -143,7 +145,7 @@ public class CircleView extends View {
                 invalidate();
             }
         });
-        va.addListener(new AnimatorListenerAdapter() {
+        innerCircleAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
@@ -173,4 +175,16 @@ public class CircleView extends View {
         invalidate();
     }
 
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (progressAnimator != null){
+            progressAnimator.cancel();
+            progressAnimator = null;
+        }
+        if (innerCircleAnimator != null) {
+            innerCircleAnimator.cancel();
+            innerCircleAnimator = null;
+        }
+    }
 }
