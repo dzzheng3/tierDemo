@@ -3,114 +3,113 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context="com.example.nandu.tieredsample.TieredCardView">
 
-
-    <TextView
-        android:id="@+id/tv_lable"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="Save 10% next week"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.033"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.033" />
-
-    <TextView
-        android:id="@+id/tv_desc"
-        android:layout_width="343dp"
-        android:layout_height="37dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="You'll get 10% off next week's rides keep riding thisweek to unlockmore rewards."
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_lable"
-        app:layout_constraintVertical_bias="0.053"
-        tools:layout_editor_absoluteX="20dp"
-        tools:layout_editor_absoluteY="67dp" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_lable"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.895"
-        app:layout_constraintStart_toEndOf="@+id/tv_lable"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        android:padding="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_small_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/tick" />
 
         <TextView
-            android:id="@+id/tv_sub_label"
+            android:id="@+id/ub_card_tiered_payment_rewards_headline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="Take 5 rides" />
+            android:layout_toRightOf="@+id/iv_small_icon"
+            android:text="Save 10% next week" />
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp">
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="0dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/ub_card_tiered_payment_rewards_headline_subtext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:text="Take 5 rides" />
 
             <RelativeLayout
-                android:id="@+id/rl_subtitle_container"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true">
+                android:layout_height="wrap_content">
 
+                <RelativeLayout
+                    android:id="@+id/ub__card_payment_rewards_progress_subtitle_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/ub_card_tiered_payment_rewards_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/animated_vector_check" />
             </RelativeLayout>
 
-            <ImageView
-                android:id="@+id/iv_check"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:scaleType="fitXY"
-                android:src="@drawable/animated_vector_check" />
-        </RelativeLayout>
-    </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/ub_card_tiered_payment_rewards_text_body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="You'll get 10% off next week's rides keep riding thisweek to unlockmore rewards."
+        app:layout_constraintStart_toStartOf="@+id/relativeLayout"
+        app:layout_constraintEnd_toEndOf="@+id/relativeLayout"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
+
 
     <LinearLayout
-        android:id="@+id/container"
+        android:id="@+id/ub__card_payment_rewards_progress_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_desc"
-        app:layout_constraintVertical_bias="0.043"></LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/ub_card_tiered_payment_rewards_text_body"></LinearLayout>
 
+    <View
+        android:id="@+id/view2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:background="#cdcdcd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ub__card_payment_rewards_progress_container" />
 
-    <LinearLayout
-        android:layout_width="500dp"
+    <TextView
+        android:id="@+id/ub__card_tiered_payment_rewards_progress_cta"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/border"
-        app:layout_constraintTop_toBottomOf="@+id/container"
-        >
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="Reward Detail" />
-    </LinearLayout>
+        android:layout_marginStart="16dp"
+        android:text="Reward Detail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view2" />
 
 </com.example.nandu.tieredsample.TieredCardView>

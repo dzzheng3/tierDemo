@@ -18,11 +18,10 @@ import android.widget.TextView;
  * Under circle also contain TextView
  * Its radius based on screen can be adjustable and paint color can be changed.
  */
-public class TierView extends ConstraintLayout{
+public class TierView extends ConstraintLayout {
 
     private CircleView circleView;
     private TextView tierProgress;
-    private TextView subLabel;
     private TextView tierTotalProgress;
     private int tierSize;
 
@@ -52,7 +51,6 @@ public class TierView extends ConstraintLayout{
         subBottomText = findViewById(R.id.discount_bottom_sub_text);
         tierContainer = findViewById(R.id.tierContainer);
         connectorView = findViewById(R.id.connector);
-        subLabel = findViewById(R.id.tv_sub_label);
         tierTotalProgress = findViewById(R.id.tv_tier_total);
         tierProgress = findViewById(R.id.tv_tier_progress);
     }

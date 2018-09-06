@@ -3,7 +3,6 @@ package com.example.nandu.tieredsample;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.util.DisplayMetrics;
 
@@ -15,7 +14,7 @@ import static com.example.nandu.tieredsample.CircleState.ONPROGRESS;
 
 public class MyActivity extends Activity {
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
         ConstraintLayout main = findViewById(R.id.main);

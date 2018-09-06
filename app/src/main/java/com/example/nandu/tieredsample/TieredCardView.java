@@ -10,19 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 
-/* Horizontal Scroller
- Based on payload, decide on number of tiers to be shown - 2 or 3
- Drawing tiers
- Based on payload, check if tier 1 is earning state
- CircleText - Add circle view - animate trips, text at bottom
- Add line view if next tier exists
- CircleImage - Add circle view with image, text at bottom if next tier exists
- Add line view if next tier exists
- CircleImage - Add circle view with image, text at bottom if next tier exists
-
-
- Based on payload, check if tier 1 is completed
- Based on payload, check if tier 2 is earning state*/
+/* {@link View} for TieredCardView*/
 public class TieredCardView extends ConstraintLayout implements CircleView.CompleteListener {
 
     LinearLayout containerLayout;
@@ -44,10 +32,10 @@ public class TieredCardView extends ConstraintLayout implements CircleView.Compl
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        checkView = findViewById(R.id.iv_check);
-        containerLayout = findViewById(R.id.container);
+        checkView = findViewById(R.id.ub_card_tiered_payment_rewards_check);
+        containerLayout = findViewById(R.id.ub__card_payment_rewards_progress_container);
 
-        subTitleContainer = findViewById(R.id.rl_subtitle_container);
+        subTitleContainer = findViewById(R.id.ub__card_payment_rewards_progress_subtitle_container);
     }
 
     public TierView getTierView(Activity activity) {

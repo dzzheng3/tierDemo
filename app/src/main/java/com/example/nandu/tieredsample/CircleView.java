@@ -30,6 +30,12 @@ public class CircleView extends View {
     private boolean isDone, isShowInnerFill;
     private ObjectAnimator progressAnimator;
     private ValueAnimator innerCircleAnimator;
+    private String DEFAULT_BACKGROUND_COLOR = "#D3D3D3";
+    private String DEFAULT_FOREGROUND_COLOR = "#47B274";
+    private String DEFAULT_INNER_CIRCLE_COLOR = "#BEE0BF";
+    private String DEFAULT_INNER_FILL_CIRCLE_COLOR = "#FFFFFF";
+    private int PROGRESS_ANIMATION_DURATION = 2000;
+    private int INNER_CIRCLE_ANIMATION_DURATION = 200;
 
     public CircleView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -43,11 +49,10 @@ public class CircleView extends View {
         super(context);
         this.listener = listener;
         this.tierSize = tierSize;
-
         bgPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         bgPaint.setStyle(Paint.Style.STROKE);
         bgPaint.setStrokeWidth(strokeWidth);
-        bgPaint.setColor(Color.parseColor("#D3D3D3"));
+        bgPaint.setColor(Color.parseColor(DEFAULT_BACKGROUND_COLOR));
 
         rectF = new RectF();
         rectFInner = new RectF();
@@ -55,16 +60,16 @@ public class CircleView extends View {
         fgPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         fgPaint.setStyle(Paint.Style.STROKE);
         fgPaint.setStrokeWidth(strokeWidth);
-        fgPaint.setColor(Color.parseColor("#47B274"));
+        fgPaint.setColor(Color.parseColor(DEFAULT_FOREGROUND_COLOR));
 
         innerPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         innerPaint.setStyle(Paint.Style.STROKE);
         innerPaint.setStrokeWidth(strokeWidth);
-        innerPaint.setColor(Color.parseColor("#BEE0BF"));
+        innerPaint.setColor(Color.parseColor(DEFAULT_INNER_CIRCLE_COLOR));
 
         innerFillPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         innerFillPaint.setStyle(Paint.Style.FILL);
-        innerFillPaint.setColor(Color.parseColor("#FFFFFF"));
+        innerFillPaint.setColor(Color.parseColor(DEFAULT_INNER_FILL_CIRCLE_COLOR));
     }
 
     @Override
@@ -94,7 +99,7 @@ public class CircleView extends View {
 
     void setProgressWithAnimation(final float progress) {
         progressAnimator = ObjectAnimator.ofFloat(this, "progress", progress);
-        progressAnimator.setDuration(2000);
+        progressAnimator.setDuration(PROGRESS_ANIMATION_DURATION);
         progressAnimator.setInterpolator(new LinearInterpolator());
         progressAnimator.start();
         progressAnimator.addListener(new AnimatorListenerAdapter() {
@@ -133,7 +138,7 @@ public class CircleView extends View {
     }
 
     public void showInnerCircleAnimation() {
-        innerCircleAnimator = ValueAnimator.ofFloat(0, 1).setDuration(200);
+        innerCircleAnimator = ValueAnimator.ofFloat(0, 1).setDuration(INNER_CIRCLE_ANIMATION_DURATION);
         innerCircleAnimator.setInterpolator(new DecelerateInterpolator());
         innerCircleAnimator.start();
         innerCircleAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
