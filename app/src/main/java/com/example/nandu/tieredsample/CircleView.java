@@ -21,7 +21,7 @@ import android.view.animation.LinearInterpolator;
 public class CircleView extends View {
 
     private Paint bgPaint, fgPaint, innerPaint, innerFillPaint;
-    private float strokeWidth = 20;
+    private float strokeWidth = DisplayUnitUtil.convertDpToPixel(7,getContext());
     private RectF rectF;
     private RectF rectFInner;
     private float progress, radius;
@@ -76,7 +76,7 @@ public class CircleView extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        int min = tierSize;
+        int min = (int) (tierSize - strokeWidth);
         setMeasuredDimension(min, min);
 
         rectF.set(0 + strokeWidth / 2, 0 + strokeWidth / 2, min - strokeWidth / 2, min - strokeWidth / 2);

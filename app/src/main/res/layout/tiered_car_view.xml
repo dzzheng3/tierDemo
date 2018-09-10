@@ -10,8 +10,9 @@
         android:id="@+id/relativeLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:padding="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -71,26 +72,15 @@
 
     <TextView
         android:id="@+id/ub_card_tiered_payment_rewards_text_body"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="You'll get 10% off next week's rides keep riding thisweek to unlockmore rewards."
-        app:layout_constraintStart_toStartOf="@+id/relativeLayout"
-        app:layout_constraintEnd_toEndOf="@+id/relativeLayout"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
-
-
-    <LinearLayout
-        android:id="@+id/ub__card_payment_rewards_progress_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal"
+        android:layout_width="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ub_card_tiered_payment_rewards_text_body"></LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="You'll get 10% off next week's rides keep riding thisweek to unlockmore rewards."
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
     <View
         android:id="@+id/view2"
@@ -101,7 +91,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ub__card_payment_rewards_progress_container" />
+        app:layout_constraintTop_toBottomOf="@+id/hsv" />
 
     <TextView
         android:id="@+id/ub__card_tiered_payment_rewards_progress_cta"
@@ -111,5 +101,22 @@
         android:text="Reward Detail"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+    <HorizontalScrollView
+        android:id="@+id/hsv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ub_card_tiered_payment_rewards_text_body">
+
+        <LinearLayout
+            android:id="@+id/ub__card_payment_rewards_progress_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"></LinearLayout>
+    </HorizontalScrollView>
 
 </com.example.nandu.tieredsample.TieredCardView>

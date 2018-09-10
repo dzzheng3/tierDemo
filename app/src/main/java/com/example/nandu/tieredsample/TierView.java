@@ -80,14 +80,13 @@ public class TierView extends ConstraintLayout {
      * @param context
      * @return CircleView
      */
-    CircleView getTierCircleView(Context context, CircleView.CompleteListener listener) {
+    CircleView getCircleView(Context context, CircleView.CompleteListener listener) {
         circleView = new CircleView(context, listener, tierSize);
         tierContainer.addView(circleView);
         return circleView;
     }
 
     void setBottomText(String bottomText, int bottomTextColor) {
-        this.bottomText.setVisibility(View.VISIBLE);
         this.bottomText.setText(bottomText);
         this.bottomText.setTextColor(bottomTextColor);
     }
@@ -122,7 +121,7 @@ public class TierView extends ConstraintLayout {
      */
     private void resetConnectorSize(int tiersSize) {
         LayoutParams layoutParams = (LayoutParams) connectorView.getLayoutParams();
-        layoutParams.width = tiersSize / 3;
+        layoutParams.width = tiersSize / 2;
         connectorView.setLayoutParams(layoutParams);
     }
 

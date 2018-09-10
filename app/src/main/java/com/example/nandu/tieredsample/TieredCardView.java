@@ -1,10 +1,10 @@
 package com.example.nandu.tieredsample;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Animatable;
 import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -38,8 +38,8 @@ public class TieredCardView extends ConstraintLayout implements CircleView.Compl
         subTitleContainer = findViewById(R.id.ub__card_payment_rewards_progress_subtitle_container);
     }
 
-    public TierView getTierView(Activity activity) {
-        return (TierView) activity.getLayoutInflater().inflate(R.layout.tier_view, null, false);
+    public TierView getTierView(Context activity) {
+        return (TierView) LayoutInflater.from(activity).inflate(R.layout.tier_view, null, false);
     }
 
     @Override
