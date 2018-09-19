@@ -4,20 +4,26 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.nandu.tieredsample.CircleState.FINISH;
-import static com.example.nandu.tieredsample.CircleState.ONPROGRESS;
 
 public class MyActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
-        LinearLayout main = findViewById(R.id.main);
+
+//        CircleImageView circleImageView = findViewById(R.id.civ);
+//        circleImageView.setImageDrawable(getDrawable(R.mipmap.ic_launcher));
+//        circleImageView.setBorderWidth(2);
+
+
+
+        FrameLayout main = findViewById(R.id.main);
 
         TieredCardView mainView = getMainView();
         main.addView(mainView);
@@ -25,7 +31,7 @@ public class MyActivity extends Activity {
         Tier tier1 = new Tier(FINISH, 0, 1, 5, Color.GREEN, Color.BLACK, Color.BLUE,
                 "riders", Color.BLACK, "10% off", "1 of 5",
                 Color.BLACK, Color.BLACK, Color.BLACK);
-        Tier tier2 = new Tier(ONPROGRESS, 0, 0, 5, Color.GREEN, Color.BLACK, Color.BLUE,
+        Tier tier2 = new Tier(FINISH, 0, 5, 5, Color.GREEN, Color.BLACK, Color.BLUE,
                 "riders", Color.BLACK, "20% off", "0 of 5",
                 Color.BLACK, Color.BLACK, Color.BLACK);
         Tier tier3 = new Tier(CircleState.UNFINISH, 0, 5, 5, Color.GREEN, Color.GRAY, Color.BLUE,

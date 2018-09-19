@@ -21,7 +21,7 @@ import android.view.animation.LinearInterpolator;
 public class CircleView extends View {
 
     private Paint bgPaint, fgPaint, innerPaint, innerFillPaint;
-    private float strokeWidth = DisplayUnitUtil.convertDpToPixel(7,getContext());
+    private float strokeWidth = DisplayUnitUtil.convertDpToPixel(7, getContext());
     private RectF rectF;
     private RectF rectFInner;
     private float progress, radius;
@@ -109,7 +109,7 @@ public class CircleView extends View {
                 if (progress == 100 && isShowInnerFill) {
                     fgPaint.setStyle(Paint.Style.FILL);
                     bgPaint.setStyle(Paint.Style.FILL);
-                    rectF.set(0, 0, tierSize, tierSize);
+                    rectF.set(0, 0, tierSize - strokeWidth, tierSize - strokeWidth);
                     showInnerCircleAnimation();
                 }
             }
@@ -144,7 +144,7 @@ public class CircleView extends View {
         innerCircleAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                isShowInnerFill = true;
+//                isShowInnerFill = true;
                 float value = 1 - (float) animation.getAnimatedValue(); // 1f ~ 0f
                 radius *= value;
                 invalidate();
@@ -155,7 +155,7 @@ public class CircleView extends View {
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
                 listener.complete();
-                invalidate();
+//                invalidate();
             }
         });
 
@@ -183,7 +183,7 @@ public class CircleView extends View {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        if (progressAnimator != null){
+        if (progressAnimator != null) {
             progressAnimator.cancel();
             progressAnimator = null;
         }

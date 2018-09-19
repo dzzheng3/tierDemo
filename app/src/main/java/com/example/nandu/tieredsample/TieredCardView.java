@@ -33,9 +33,15 @@ public class TieredCardView extends ConstraintLayout implements CircleView.Compl
     protected void onFinishInflate() {
         super.onFinishInflate();
         checkView = findViewById(R.id.ub_card_tiered_payment_rewards_check);
+        resetCheckAnim(checkView);
         containerLayout = findViewById(R.id.ub__card_payment_rewards_progress_container);
 
         subTitleContainer = findViewById(R.id.ub__card_payment_rewards_progress_subtitle_container);
+    }
+
+    private void resetCheckAnim(ImageView checkView) {
+        checkView.setImageDrawable(null);
+        checkView.setImageResource(R.drawable.ub_tiered_payment_reward_animated_vector_check);
     }
 
     public TierView getTierView(Context activity) {
@@ -44,7 +50,8 @@ public class TieredCardView extends ConstraintLayout implements CircleView.Compl
 
     @Override
     public void complete() {
-        ((Animatable) checkView.getDrawable()).start();
+        if (!((Animatable) checkView.getDrawable()).isRunning())
+            ((Animatable) checkView.getDrawable()).start();
     }
 
     public void addTierView(TierView tierView) {
