@@ -107,7 +107,7 @@ public class MyActivity extends Activity {
         }
 
 //        mainView.addCircle(this, tier2);
-        CircleView tierCircleView = new CircleView(this, mainView, 80);
+        CircleView tierCircleView = new CircleView(this, mainView, 100);
         switch (tier2.getCircleState()) {
             case ONPROGRESS:
                 if (tier2.getTierProgress() == 0) {

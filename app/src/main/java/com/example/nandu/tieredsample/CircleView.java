@@ -45,6 +45,11 @@ public class CircleView extends View {
         super(context, attrs, defStyleAttr);
     }
 
+    public void setCircleSize(int circleSize) {
+        this.tierSize = circleSize;
+        invalidate();
+    }
+
     public CircleView(Context context, CompleteListener listener, int tierSize) {
         super(context);
         this.listener = listener;

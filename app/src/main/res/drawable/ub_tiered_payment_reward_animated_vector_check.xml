@@ -13,16 +13,16 @@
         <objectAnimator
             android:duration="@android:integer/config_shortAnimTime"
             android:propertyName="pathData"
-            android:valueFrom="M4,10 l0,0 l0,0"
-            android:valueTo="M4,10 l6,6 l0,0"
+            android:valueFrom="M4,11 l0,0 l0,0"
+            android:valueTo="M4,11 l6,6 l0,0"
             android:valueType="pathType" />
 
         <!-- Second animation, the long forward slash part of the check, / -->
         <objectAnimator
             android:duration="@android:integer/config_shortAnimTime"
             android:propertyName="pathData"
-            android:valueFrom="M4,10 l6,6 l0,0"
-            android:valueTo="M4,10 l6,6 l9,-8"
+            android:valueFrom="M4,11 l6,6 l0,0"
+            android:valueTo="M4,11 l6,6 l9,-8"
             android:valueType="pathType" />
       </set>
     </aapt:attr>

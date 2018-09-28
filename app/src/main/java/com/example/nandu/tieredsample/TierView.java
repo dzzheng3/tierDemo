@@ -114,6 +114,11 @@ public class TierView extends ConstraintLayout {
         resetConnectorSize(tiersSize);
     }
 
+    public void setTierSizeOnTablet(int screenSize, int tierSize, int tiersSize) {
+        this.tierSize = tiersSize;
+        resetConnectorSize(screenSize, tierSize, tiersSize);
+    }
+
     /**
      * Adjust the the connector length.
      *
@@ -122,6 +127,12 @@ public class TierView extends ConstraintLayout {
     private void resetConnectorSize(int tiersSize) {
         LayoutParams layoutParams = (LayoutParams) connectorView.getLayoutParams();
         layoutParams.width = tiersSize / 2;
+        connectorView.setLayoutParams(layoutParams);
+    }
+
+    private void resetConnectorSize(int screenSize, int tierSize, int tiersSize) {
+        LayoutParams layoutParams = (LayoutParams) connectorView.getLayoutParams();
+        layoutParams.width = screenSize - tierSize * tiersSize;
         connectorView.setLayoutParams(layoutParams);
     }
 
